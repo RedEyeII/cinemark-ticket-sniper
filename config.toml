@@ -31,6 +31,8 @@ party_size = 2
 # Cinemark rate-limits around 60-70 requests per 10 minutes per IP.
 request_gap_seconds = 8
 
+date = "2026-12-15"
+
 # Probe for newly added dates every Nth sweep (seat checks happen every sweep).
 date_scan_every = 3
 
