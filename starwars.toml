@@ -1,0 +1,10 @@
+# Star Wars 1977 70mm Broad Net Tracker
+theater = "tx-dallas/cinemark-dallas-xd-and-imax"
+theatre_url = "https://www.imax.com/movie/star-wars-50th-anniversary"
+
+[filters]
+# We leave movie_id COMPLETELY out of this file so it scans the whole day!
+excluded_rows = [] 
+earliest_showtime = "09:00"
+latest_showtime = "23:59"
+party_size = 1 # Set to 1 so ANY single ticket drop triggers the alarm
