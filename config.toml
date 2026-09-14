@@ -7,7 +7,7 @@ theater = "tx-dallas/cinemark-dallas-xd-and-imax"
 
 # Movie id: on the theater page, right-click any showtime of your movie and
 # copy the link: it looks like /TicketSeatMap/?TheaterId=...&CinemarkMovieId=104867&...
-movie_id = https://www.cinemark.com/TicketSeatMap/?TheaterId=207&ShowtimeId=645301&CinemarkMovieId=112488&Showtime=2026-12-15T22:15:00
+movie_id = 112488
 
 # Used in alert messages only.
 movie_name = "Dune 3"
