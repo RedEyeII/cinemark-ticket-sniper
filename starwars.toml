@@ -3,6 +3,7 @@
 [target]
 theater = "tx-dallas/cinemark-dallas-xd-and-imax"
 theatre_url = "https://www.imax.com/movie/star-wars-50th-anniversary"
+movie_id = "000000"
 
 [filters]
 excluded_rows = [] 
