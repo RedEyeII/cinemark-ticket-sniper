@@ -36,13 +36,7 @@ jobs:
 
       - name: Run sweep
         if: ${{ !inputs.test_alert }}
-        run: | 
-          python3 watch.py --once
-          cp config.toml dune.toml
-          cp starwars.toml config.toml
-          python3 watch.py --once
-          cp dune.toml config.toml
-          rm dune.toml
+        run: python3 watch.py --once
 
       - name: Persist state
         run: |
