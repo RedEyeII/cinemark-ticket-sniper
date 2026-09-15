@@ -154,7 +154,7 @@ def available_seats(theater_id: str, showtime_id: str, iso: str) -> list[Seat]:
     html = fetch(url)
         if "seatBlock" not in html:
         raise RuntimeError(f"seat map {showtime_id} returned no seat markup (page changed?)")
-    return [Seat(row, int(num), int(col))
+        return [Seat(row, int(num), int(col))
             for row, num, col in AVAILABLE_SEAT.findall(html)
             if row not in EXCLUDED_ROWS]
 
