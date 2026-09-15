@@ -208,8 +208,10 @@ def sweep(state: dict, scan_dates: bool, only_dates: list[str] | None) -> None:
                 continue
             if theater_id:
                 state["theater_id"] = theater_id
-            state["dates"][date] = {"showtimes": shows}
+            if shows or date not in state["dates"]:
+                state["dates"][date] = {"showtimes": shows}
             if shows and not first_run:
+
                 notify(f"New date on sale: {date}",
                        f"{MOVIE_NAME} added for {date}: "
                        + ", ".join(sorted(fmt_time(i) for i in shows.values())))
