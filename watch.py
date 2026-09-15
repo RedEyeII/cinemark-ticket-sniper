@@ -49,6 +49,7 @@ EXCLUDED_ROWS = set(FILTERS.get("excluded_rows", []))
 EARLIEST = FILTERS.get("earliest_showtime", "00:00")
 LATEST = FILTERS.get("latest_showtime", "23:59")
 PARTY_SIZE = int(FILTERS.get("party_size", 1))
+FORMAT_FILTER = FILTERS.get("format_filter", "").strip().lower()
 REQUEST_GAP = float(PACING.get("request_gap_seconds", 8))
 DATE_SCAN_EVERY = int(PACING.get("date_scan_every", 3))
 POLL_MINUTES = float(PACING.get("poll_minutes", 5))
@@ -67,6 +68,11 @@ SHOWTIME_LINK = re.compile(
 AVAILABLE_SEAT = re.compile(
     r'<button[^>]*class="seatAvailable seatBlock"[^>]*info="([A-Z]+),(\d+),\d+,(\d+),'
 )
+
+PRINT_TYPE = re.compile(r'id="PrintType"[^>]*value="([^"]*)"')
+
+class WrongFormat(Exception):
+    """Showtime doesn't match FORMAT_FILTER — stop watching it, don't treat as an error."""
 
 
 @dataclass
