@@ -39,13 +39,15 @@ jobs:
         run: python3 watch.py --once
 
       - name: Persist state
-        shell: bash
+        shell: pwsh
         run: |
           git config user.name "odyssey-watcher[bot]"
           git config user.email "actions@users.noreply.github.com"
-          git add state.json alerts.log 2>/dev/null || true
-          if ! git diff --cached --quiet; then
-            git commit -m "state: sweep $(date -u '+%Y-%m-%d %H:%M UTC')"
-            git pull --rebase --autostash origin main || true
-            git push
-          fi
+          git add state.json alerts.log 2>$null
+          git diff --cached --quiet
+          if ($LASTEXITCODE -ne 0) {
+              $ts = (Get-Date).ToUniversalTime().ToString("yyyy-MM-dd HH:mm") + " UTC"
+              git commit -m "state: sweep $ts"
+              git pull --rebase --autostash origin main
+              git push
+          }
