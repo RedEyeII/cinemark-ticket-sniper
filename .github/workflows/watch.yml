@@ -39,7 +39,7 @@ jobs:
         run: python3 watch.py --once
 
       - name: Persist state
-        shell: pwsh
+        shell: powershell
         run: |
           git config user.name "odyssey-watcher[bot]"
           git config user.email "actions@users.noreply.github.com"
