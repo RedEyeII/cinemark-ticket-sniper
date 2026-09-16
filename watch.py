@@ -187,7 +187,7 @@ def fmt_block(block: list[Seat]) -> str:
 
 
 def fmt_time(iso: str) -> str:
-    return datetime.fromisoformat(iso).strftime("%-I:%M%p").lower()
+    return datetime.fromisoformat(iso).strftime("%I:%M%p").lstrip("0").lower()
 
 
 def prune_past(state: dict) -> None:
