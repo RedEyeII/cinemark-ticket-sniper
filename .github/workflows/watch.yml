@@ -36,7 +36,7 @@ jobs:
 
       - name: Run sweep
         if: ${{ !inputs.test_alert }}
-        run: python3 watch.py --once
+        run: python3 -u watch.py --once
 
       - name: Persist state
         shell: powershell
