@@ -24,6 +24,7 @@ excluded_rows = ["A", "B", "C", "D"]
 earliest_showtime = "09:00"
 latest_showtime = "23:59"
 format_filter = "imax 70mm"
+watch_any_movie_dates = ["2027-02-19"]
 
 # Alert only when this many physically adjacent seats open up together.
 party_size = 2
