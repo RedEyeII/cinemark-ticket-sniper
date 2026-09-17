@@ -103,8 +103,10 @@ def fetch(url: str) -> str:
             log(f"rate-limited/blocked, backing off {wait}s (attempt {attempt})")
             time.sleep(wait)
         try:
+            print(f"[{time.strftime('%H:%M:%S')}] about to fetch {url}", flush=True)
             with urllib.request.urlopen(req, timeout=30) as resp:
                 body = resp.read()
+                print(f"[{time.strftime('%H:%M:%S')}] got response from {url}", flush=True)
                 if resp.headers.get("Content-Encoding") == "gzip":
                     body = gzip.decompress(body)
             time.sleep(REQUEST_GAP + REQUEST_GAP / 2 * random.random())
