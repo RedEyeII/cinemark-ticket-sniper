@@ -50,6 +50,7 @@ EARLIEST = FILTERS.get("earliest_showtime", "00:00")
 LATEST = FILTERS.get("latest_showtime", "23:59")
 PARTY_SIZE = int(FILTERS.get("party_size", 1))
 FORMAT_FILTER = FILTERS.get("format_filter", "").strip().lower()
+WATCH_ANY_MOVIE_DATES = set(FILTERS.get("watch_any_movie_dates", []))
 REQUEST_GAP = float(PACING.get("request_gap_seconds", 8))
 DATE_SCAN_EVERY = int(PACING.get("date_scan_every", 3))
 POLL_MINUTES = float(PACING.get("poll_minutes", 5))
@@ -67,6 +68,11 @@ SHOWTIME_LINK = re.compile(
 # info="F,12,5,9,635630" = row letter, seat number, physical row, column, showtime
 AVAILABLE_SEAT = re.compile(
     r'<button[^>]*class="seatAvailable seatBlock"[^>]*info="([A-Z]+),(\d+),\d+,(\d+),'
+)
+
+ANY_SHOWTIME_LINK = re.compile(
+    r'/TicketSeatMap/\?TheaterId=(\d+)&(?:amp;)?ShowtimeId=(\d+)&(?:amp;)?'
+    r'CinemarkMovieId=(\d+)&(?:amp;)?Showtime=([\d\-T:]+)'
 )
 
 PRINT_TYPE = re.compile(r'id="PrintType"[^>]*value="([^"]*)"')
