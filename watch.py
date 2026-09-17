@@ -158,6 +158,13 @@ def showtimes_for(date: str) -> tuple[str | None, dict[str, str]]:
     return (links[0][0] if links else None), {sid: iso for _tid, sid, iso in links}
 
 
+def check_any_movie(date: str, seen: set[str]) -> list[tuple[str, str, str]]:
+    """Return (sid, movie_id, iso) for any showtime on this date not seen before."""
+    html = fetch(f"{BASE}/theatres/{THEATER}?showDate={date}")
+    return [(sid, mid, iso) for _tid, sid, mid, iso in ANY_SHOWTIME_LINK.findall(html)
+            if sid not in seen]
+  
+
 def qualifying(iso: str) -> bool:
     return EARLIEST <= iso[11:16] <= LATEST
 
@@ -231,6 +238,21 @@ def sweep(state: dict, scan_dates: bool, only_dates: list[str] | None) -> None:
                        + ", ".join(sorted(fmt_time(i) for i in shows.values())))
         log(f"date scan: tracking "
             f"{sum(1 for d in state['dates'].values() if d['showtimes'])} dates")
+        save_state(state)
+          if scan_dates:
+        state.setdefault("any_movie_seen", {})
+        for date in WATCH_ANY_MOVIE_DATES:
+            seen = set(state["any_movie_seen"].get(date, []))
+            try:
+                found = check_any_movie(date, seen)
+            except Exception as e:  # noqa: BLE001: skip this date, keep sweeping
+                log(f"WARN: any-movie probe {date} failed: {e!r}")
+                continue
+            if found and not first_run:
+                notify(f"New showtime appeared {date}",
+                       "; ".join(f"movie {mid} at {fmt_time(iso)} (id {sid})"
+                                 for sid, mid, iso in found))
+            state["any_movie_seen"][date] = sorted(seen | {sid for sid, _, _ in found})
         save_state(state)
 
     watch = [
