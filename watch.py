@@ -239,7 +239,7 @@ def sweep(state: dict, scan_dates: bool, only_dates: list[str] | None) -> None:
         log(f"date scan: tracking "
             f"{sum(1 for d in state['dates'].values() if d['showtimes'])} dates")
         save_state(state)
-          if scan_dates:
+        if scan_dates:
         state.setdefault("any_movie_seen", {})
         for date in WATCH_ANY_MOVIE_DATES:
             seen = set(state["any_movie_seen"].get(date, []))
