@@ -243,7 +243,7 @@ def sweep(state: dict, scan_dates: bool, only_dates: list[str] | None) -> None:
         save_state(state)
         if scan_dates:
             state.setdefault("any_movie_seen", {})
-            for date in WATCH_ANY_MOVIE_DATES:
+            for date in WATCH_ANY_MOVIE_DATES & set(calendar):
                 seen = set(state["any_movie_seen"].get(date, []))
                 try:
                     found = check_any_movie(date, seen)
