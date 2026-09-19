@@ -218,7 +218,9 @@ def sweep(state: dict, scan_dates: bool, only_dates: list[str] | None) -> None:
     prune_past(state)
 
     if scan_dates or first_run or only_dates or "theater_id" not in state:
-        strip = only_dates or DATE_VALUE.findall(fetch(f"{BASE}/theatres/{THEATER}"))
+        calendar = only_dates or DATE_VALUE.findall(fetch(f"{BASE}/theatres/{THEATER}"))
+        known = set(state["dates"].keys()) | WATCH_ANY_MOVIE_DATES
+        strip = calendar if only_dates else [d for d in calendar if d in known]
         for date in sorted(set(strip)):
             if state["dates"].get(date, {}).get("showtimes"):
                 continue  # already tracking; showtime ids are stable
